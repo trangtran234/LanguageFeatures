@@ -114,11 +114,10 @@ namespace LanguageFeatures.Controllers
                 }
             };
 
-            // Use a 'lambda expression' to replace delegate definition: it is the same delegate but it make the code to be clean
-            Func<Product, bool> categoryFilter = prod => prod.Category == "Soccer";
-
             decimal total = 0;
-            foreach (Product prod in products.Filter(categoryFilter))
+
+            // More easier than: Func<Product, bool> categoryFilter = prod => prod.Category == "Soccer";
+            foreach (Product prod in products.Filter(prod => prod.Category == "Soccer"))
             {
                 total += prod.Price;
             }
