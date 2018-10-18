@@ -153,19 +153,12 @@ namespace LanguageFeatures.Controllers
                  new Product {Name = "Corner flag", Category = "Soccer", Price = 34.95M}
             };
 
-            // Awsome LINQ: really usefuly
-            var foundProducts = from match in products
-                                orderby match.Price descending
-                                select new { match.Name, match.Price };
-            int count = 0;
+            // Awsome LINQ: dot notation
+            var foundProducts = products.OrderByDescending(e => e.Price).Take(3).Select(e => new { e.Name, e.Price });
             StringBuilder result = new StringBuilder();
             foreach (var p in foundProducts)
             {
                 result.AppendFormat("Price: {0:c} ", p.Price);
-                if (++count == 3)
-                {
-                    break;
-                }
             }
 
             return View("Result", (object)result.ToString());
