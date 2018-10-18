@@ -114,8 +114,14 @@ namespace LanguageFeatures.Controllers
                 }
             };
 
+            // Use a 'delegate' to make the method more general and easier reuse
+            Func<Product, bool> categoryFilter = delegate (Product prod)
+            {
+                return prod.Category == "Soccer";
+            };
+
             decimal total = 0;
-            foreach (Product prod in products.FilterByCategory("Soccer"))
+            foreach (Product prod in products.Filter(categoryFilter))
             {
                 total += prod.Price;
             }
