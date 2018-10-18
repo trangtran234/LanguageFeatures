@@ -155,6 +155,9 @@ namespace LanguageFeatures.Controllers
 
             // Awsome LINQ: dot notation
             var foundProducts = products.OrderByDescending(e => e.Price).Take(3).Select(e => new { e.Name, e.Price });
+
+            products[2] = new Product { Name = "Stadium", Price = 79600M };
+
             StringBuilder result = new StringBuilder();
             foreach (var p in foundProducts)
             {
@@ -162,6 +165,21 @@ namespace LanguageFeatures.Controllers
             }
 
             return View("Result", (object)result.ToString());
+        }
+
+        public ActionResult SumProducts()
+        {
+            Product[] products =
+            {
+                 new Product {Name = "Kayak", Category = "Watersports", Price = 275M},
+                 new Product {Name = "Lifejacket", Category = "Watersports", Price = 48.95M},
+                 new Product {Name = "Soccer ball", Category = "Soccer", Price = 19.50M},
+                 new Product {Name = "Corner flag", Category = "Soccer", Price = 34.95M}
+            };
+
+            var results = products.Sum(e => e.Price);
+
+            return View("Result", (object)String.Format("Sum: {0:c}", results));
         }
     }
 }
